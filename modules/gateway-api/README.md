@@ -12,6 +12,10 @@ To use this module you must ensure the following APIs are enabled in the target 
 "trafficdirector.googleapis.com"
 ```
 
+## Disclaimer
+- This module use [kubectl provider](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs), the usage follow its own license.
+- Gateway API CRDs should be managed manually, the files store under CRD folder are place ONLY for demo purpose. Please, refer to the [official repo](github.com/kubernetes-sigs/gateway-api/)
+
 ## Usage example
 
 ```hcl
