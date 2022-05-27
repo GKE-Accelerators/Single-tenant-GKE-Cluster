@@ -19,79 +19,97 @@ variable "project_id" {
   type        = string
 }
 
-variable "authenticator_security_group" {
-  description = "RBAC security group for Google Groups for GKE, format is gke-security-groups@yourdomain.com."
+variable "cluster_name" {
+  description = "	Cluster name."
   type        = string
-  default     = null
 }
 
-variable "cluster_defaults" {
-  description = "Default values for optional cluster configurations."
-  type = object({
-    cloudrun_config                 = bool
-    database_encryption_key         = string
-    enable_binary_authorization     = bool
-    master_authorized_ranges        = map(string)
-    max_pods_per_node               = number
-    pod_security_policy             = bool
-    release_channel                 = string
-    vertical_pod_autoscaling        = bool
-    gcp_filestore_csi_driver_config = bool
-  })
-  default = {
-    # TODO: review defaults
-    cloudrun_config             = false
-    database_encryption_key     = null
-    enable_binary_authorization = false
-    master_authorized_ranges = {
-      rfc1918_1 = "10.0.0.0/8"
-      rfc1918_2 = "172.16.0.0/12"
-      rfc1918_3 = "192.168.0.0/16"
-    }
-    max_pods_per_node               = 110
-    pod_security_policy             = false
-    release_channel                 = "STABLE"
-    vertical_pod_autoscaling        = false
-    gcp_filestore_csi_driver_config = false
-  }
+variable "cluster_description" {
+  description = "Cluster description."
+  type        = string
 }
 
-variable "cluster" {
-  description = ""
-  type = object({
-    name = string
-    cluster_autoscaling = object({
-      cpu_min    = number
-      cpu_max    = number
-      memory_min = number
-      memory_max = number
-    })
-    description = string
-    /* dns_domain  = string */
-    labels      = map(string)
-    location    = string
-    net = object({
-      master_range = string
-      pods         = string
-      services     = string
-      subnet       = string
-    })
-    overrides = object({
-      cloudrun_config                 = bool
-      database_encryption_key         = string
-      enable_binary_authorization     = bool
-      master_authorized_ranges        = map(string)
-      max_pods_per_node               = number
-      pod_security_policy             = bool
-      release_channel                 = string
-      vertical_pod_autoscaling        = bool
-      gcp_filestore_csi_driver_config = bool
-    })
-  })
+variable "cluster_location" {
+  description = "	Cluster zone or region."
+  type        = string
 }
+
+variable "labels" {
+  description = "Cluster resource labels."
+  type        = map(string)
+}
+
 
 variable "network" {
   description = "Name or self link of the VPC used for the cluster. Use the self link for Shared VPC."
-  type = string
+  type        = string
 }
 
+
+variable "subnetwork" {
+  description = "VPC subnetwork name or self link."
+  type        = string
+}
+
+variable "secondary_range_pods" {
+  description = "Subnet secondary range name used for pods."
+  type        = string
+}
+
+variable "secondary_range_services" {
+  description = "Subnet secondary range name used for pods."
+  type        = string
+}
+
+variable "cluster_autoscaling" {
+  description = "Enable and configure limits for Node Auto-Provisioning with Cluster Autoscaler."
+  type = object({
+    enabled    = bool
+    cpu_min    = number
+    cpu_max    = number
+    memory_min = number
+    memory_max = number
+  })
+  default = {
+    enabled    = false
+    cpu_min    = 0
+    cpu_max    = 0
+    memory_min = 0
+    memory_max = 0
+  }
+}
+
+variable "horizontal_pod_autoscaling" {
+  description = "Set to true to enable horizontal pod autoscaling"
+  type        = bool
+}
+
+variable "vertical_pod_autoscaling" {
+  description = "Set to true to enable vertical pod autoscaling"
+  type        = bool
+}
+
+variable "database_encryption_key" {
+  description = "Database Encryption Key name to	enable and configure GKE application-layer secrets encryption."
+  type        = string
+}
+
+variable "private_cluster_config" {
+  description = "Enable and configure private cluster, private nodes must be true if used."
+  type = object({
+    enable_private_nodes    = bool
+    enable_private_endpoint = bool
+    master_ipv4_cidr_block  = string //The IP range in CIDR notation to use for the hosted master network
+    master_global_access    = bool
+  })
+}
+
+variable "master_authorized_ranges" {
+  description = "External Ip address ranges that can access the Kubernetes cluster master through HTTPS.."
+  type        = map(string)
+}
+
+variable "enable_binary_authorization" {
+  description = "Enable Google Binary Authorization."
+  type        = bool
+}
