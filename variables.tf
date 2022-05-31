@@ -20,17 +20,21 @@ variable "project_id" {
 }
 
 variable "cluster_name" {
-  description = "	Cluster name."
+  description = "Cluster name."
   type        = string
 }
 
+variable "nodepool_name" {
+  description = "Nodepool name."
+  type        = string
+}
 variable "cluster_description" {
   description = "Cluster description."
   type        = string
 }
 
 variable "cluster_location" {
-  description = "	Cluster zone or region."
+  description = "Cluster zone or region."
   type        = string
 }
 

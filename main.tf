@@ -35,7 +35,7 @@ module "gke-cluster" {
     config_connector_config               = true
     kalm_config                           = false
     gcp_filestore_csi_driver_config       = false
-    network_policy_config = false
+    network_policy_config                 = false
     istio_config = {
       enabled = false
       tls     = false
@@ -59,4 +59,12 @@ module "gke-cluster" {
   master_authorized_ranges    = var.master_authorized_ranges
   vertical_pod_autoscaling    = var.vertical_pod_autoscaling
 
+}
+
+module "gke-cluster-nodepool" {
+  source       = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-nodepool?ref=v15.0.0"
+  project_id   = var.project_id
+  cluster_name = var.cluster_name
+  location     = var.cluster_location
+  name         = var.nodepool_name
 }
