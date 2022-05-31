@@ -1,5 +1,6 @@
 project_id               = ""
 cluster_name             = ""
+nodepool_name            = ""
 cluster_description      = ""
 cluster_location         = ""
 labels                   = {}
