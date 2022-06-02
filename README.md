@@ -27,6 +27,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_gke-cluster"></a> [gke-cluster](#module\_gke-cluster) | github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-cluster | v15.0.0 |
+| [acm](https://registry.terraform.io/modules/terraform-google-modules/kubernetes-engine/google/latest/submodules/acm) | terraform-google-modules/kubernetes-engine/google//modules/acm | 21.1.0 |
 
 ## Resources
 
@@ -52,8 +53,14 @@ No resources.
 | <a name="input_secondary_range_services"></a> [secondary\_range\_services](#input\_secondary\_range\_services) | Subnet secondary range name used for pods. | `string` | n/a | yes |
 | <a name="input_subnetwork"></a> [subnetwork](#input\_subnetwork) | VPC subnetwork name or self link. | `string` | n/a | yes |
 | <a name="input_vertical_pod_autoscaling"></a> [vertical\_pod\_autoscaling](#input\_vertical\_pod\_autoscaling) | Set to true to enable vertical pod autoscaling | `bool` | n/a | yes |
+| sync_repo | ACM Git repo address	 | `string` | `https://github.com/GoogleCloudPlatform/acm-essentials` | yes |
+| sync_branch | ACM repo Git branch. If un-set, uses Config Management default. | `string` | "" | optional |
+| policy_dir | ACM repo Git revision. If un-set, uses Config Management default. | `string` | "" | optional |
 
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->
+| Name | Description | 
+|------|-------------|
+| gke-endpoint | GKE controller endpoint | 
+| git-creds-public | Git credentails to be added to repo to be used to manage the configuration files for ACM| 

@@ -35,7 +35,7 @@ module "gke-cluster" {
     config_connector_config               = true
     kalm_config                           = false
     gcp_filestore_csi_driver_config       = false
-    network_policy_config = false
+    network_policy_config                 = false
     istio_config = {
       enabled = false
       tls     = false
@@ -55,8 +55,44 @@ module "gke-cluster" {
       key_name = var.database_encryption_key
     }
   )
+  default_max_pods_per_node   = var.default_max_pods_per_node
   enable_binary_authorization = var.enable_binary_authorization
   master_authorized_ranges    = var.master_authorized_ranges
   vertical_pod_autoscaling    = var.vertical_pod_autoscaling
+}
 
+module "nodepool" {
+  source                      = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-nodepool?ref=v15.0.0"
+  project_id                  = var.project_id
+  cluster_name                = module.gke-cluster.name
+  location                    = var.cluster_location
+  name                        = "${module.gke-cluster.name}-pool"
+  node_service_account_create = true
+}
+
+module "gke-gateway-api" {
+  source         = "./modules/gateway-api"
+  endpoint       = module.gke-cluster.endpoint
+  ca_certificate = module.gke-cluster.ca_certificate
+}
+
+# Register the cluster to Anthos configuration manager
+data "google_client_config" "default" {}
+
+provider "kubernetes" {
+  host                   = "https://${module.gke-cluster.endpoint}"
+  token                  = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(module.gke-cluster.ca_certificate)
+}
+
+module "acm" {
+  source       = "terraform-google-modules/kubernetes-engine/google//modules/acm"
+  project_id   = var.project_id
+  cluster_name = module.gke-cluster.name
+  location     = module.gke-cluster.location
+  sync_repo    = var.sync_repo
+  sync_branch  = var.sync_branch
+  policy_dir   = var.policy_dir
+
+  depends_on = [module.nodepool]
 }
