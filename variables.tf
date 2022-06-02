@@ -92,6 +92,7 @@ variable "vertical_pod_autoscaling" {
 variable "database_encryption_key" {
   description = "Database Encryption Key name to	enable and configure GKE application-layer secrets encryption."
   type        = string
+  default     = null
 }
 
 variable "private_cluster_config" {
@@ -112,4 +113,25 @@ variable "master_authorized_ranges" {
 variable "enable_binary_authorization" {
   description = "Enable Google Binary Authorization."
   type        = bool
+}
+
+variable "default_max_pods_per_node" {
+  description = "Max nodes allowed per node."
+  type        = number
+}
+
+variable "sync_repo" {
+  type        = string
+  description = "ACM Git repo address	"
+  default     = "https://github.com/GoogleCloudPlatform/acm-essentials"
+}
+variable "sync_branch" {
+  type        = string
+  description = "ACM repo Git branch. If un-set, uses Config Management default."
+  default     = ""
+}
+variable "policy_dir" {
+  type        = string
+  description = "ACM repo Git revision. If un-set, uses Config Management default."
+  default     = ""
 }
