@@ -66,7 +66,7 @@ module "nodepool" {
   project_id                  = var.project_id
   cluster_name                = module.gke-cluster.name
   location                    = var.cluster_location
-  name                        = "${module.gke-cluster.name}-pool"
+  name                        = "${module.gke-cluster.name}-np"
   node_service_account_create = true
 }
 
