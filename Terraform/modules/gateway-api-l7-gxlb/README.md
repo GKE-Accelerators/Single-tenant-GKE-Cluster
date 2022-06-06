@@ -1,5 +1,5 @@
 # Gateway API module
-This module can be used to activate Gateway API CRDs 0.4.3alpha1 v0.4.3alpha2 to a given gke cluster.
+This module can be used to activate GXLB through the Gateway API to a given gke cluster.
 
 To use this module you must ensure the following APIs are enabled in the target project:
 ```
@@ -13,8 +13,9 @@ To use this module you must ensure the following APIs are enabled in the target 
 ```
 
 ## Disclaimer
-- This module uses [kubectl provider](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs), the usage follow its own license.
+- This module uses [kubernetes provider](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs), the usage follow its own license.
 - Gateway API CRDs should be managed manually, the files store under CRD folder are place ONLY for demo purpose. Please, refer to the [official repo](github.com/kubernetes-sigs/gateway-api/)
+- Connect the gateway-api-l7-gxlb module with the gateway-api module to ensure consistency
 
 ## Usage example
 
@@ -23,5 +24,12 @@ module "gke-gateway-api" {
   source         = "./modules/gateway-api"
   endpoint       = module.gke_1.endpoint
   ca_certificate = module.gke_1.ca_certificate
+}
+
+module "gke-gateway-api-demo" {
+  source              = "./modules/gateway-api-l7-gxlb"
+  endpoint            = module.gke_1.endpoint
+  ca_certificate      = module.gke_1.ca_certificate
+  gateway_api_version = module.gke-gateway-api.version
 }
 ```
