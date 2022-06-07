@@ -68,6 +68,11 @@ module "nodepool" {
   location                    = var.cluster_location
   name                        = "${module.gke-cluster.name}-np"
   node_service_account_create = true
+  node_count                  = 10
+  autoscaling_config = {
+    min_node_count = 5
+    max_node_count = 20
+  }
 }
 
 module "gke-gateway-api" {
@@ -96,3 +101,10 @@ module "acm" {
 
   depends_on = [module.nodepool]
 }
+
+# module "gke-gateway-api-demo" {
+#   source              = "./modules/gateway-api-l7-gxlb"
+#   endpoint            = module.gke-cluster.endpoint
+#   ca_certificate      = module.gke-cluster.ca_certificate
+#   # gateway_api_version = module.gke-gateway-api.version
+# }

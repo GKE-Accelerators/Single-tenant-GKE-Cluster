@@ -71,22 +71,24 @@ variable "cluster_autoscaling" {
     memory_max = number
   })
   default = {
-    enabled    = false
-    cpu_min    = 0
-    cpu_max    = 0
-    memory_min = 0
-    memory_max = 0
+    enabled    = true
+    cpu_min    = 80
+    cpu_max    = 20
+    memory_min = 2048
+    memory_max = 08192
   }
 }
 
 variable "horizontal_pod_autoscaling" {
   description = "Set to true to enable horizontal pod autoscaling"
   type        = bool
+  default = true
 }
 
 variable "vertical_pod_autoscaling" {
   description = "Set to true to enable vertical pod autoscaling"
   type        = bool
+  default = true
 }
 
 variable "database_encryption_key" {

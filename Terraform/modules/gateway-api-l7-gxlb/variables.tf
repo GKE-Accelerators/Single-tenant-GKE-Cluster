@@ -15,12 +15,14 @@
  */
 
 variable "gateway_api_version" {
-  default = "Gateway API Version"
+  description = "Gateway API Version"
   type    = string
+  default = ""
+
 }
 
 variable "ca_certificate" {
-  default = "Cluster ca certificate"
+  description = "Cluster ca certificate"
   type    = string
 }
 
