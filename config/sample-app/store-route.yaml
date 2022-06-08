@@ -6,8 +6,6 @@ metadata:
   labels:
     gateway: store
 spec:
-  hostnames:
-    - "demo.example.com"
   parentRefs:
     - name: store
   rules:
