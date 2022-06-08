@@ -82,13 +82,13 @@ variable "cluster_autoscaling" {
 variable "horizontal_pod_autoscaling" {
   description = "Set to true to enable horizontal pod autoscaling"
   type        = bool
-  default = true
+  default     = true
 }
 
 variable "vertical_pod_autoscaling" {
   description = "Set to true to enable vertical pod autoscaling"
   type        = bool
-  default = true
+  default     = true
 }
 
 variable "database_encryption_key" {

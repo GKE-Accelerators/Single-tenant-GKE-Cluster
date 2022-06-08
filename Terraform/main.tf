@@ -103,8 +103,8 @@ module "acm" {
 }
 
 # module "gke-gateway-api-demo" {
-#   source              = "./modules/gateway-api-l7-gxlb"
-#   endpoint            = module.gke-cluster.endpoint
-#   ca_certificate      = module.gke-cluster.ca_certificate
+#   source         = "./modules/gateway-api-l7-gxlb"
+#   endpoint       = module.gke-cluster.endpoint
+#   ca_certificate = module.gke-cluster.ca_certificate
 #   # gateway_api_version = module.gke-gateway-api.version
 # }
