@@ -29,3 +29,4 @@ override.tf.json
 # example: *tfplan*
 sapient-helix-352609-3cbb85521a53.json
 terraform.tfvars
+.gitignore

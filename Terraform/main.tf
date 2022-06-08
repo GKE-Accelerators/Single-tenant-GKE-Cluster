@@ -68,7 +68,7 @@ module "nodepool" {
   location                    = var.cluster_location
   name                        = "${module.gke-cluster.name}-np"
   node_service_account_create = true
-  node_count                  = 10
+  node_count                  = 5
   autoscaling_config = {
     min_node_count = 5
     max_node_count = 20
