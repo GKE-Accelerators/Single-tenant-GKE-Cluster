@@ -22,16 +22,19 @@ variable "project_id" {
 variable "cluster_name" {
   description = "	Cluster name."
   type        = string
+  default     = "my-cluster"
 }
 
 variable "cluster_description" {
   description = "Cluster description."
   type        = string
+  default     = " This is a simple single tenant cluster"
 }
 
 variable "cluster_location" {
   description = "	Cluster zone or region."
   type        = string
+  default     = "us-central1"
 }
 
 variable "labels" {
@@ -75,7 +78,7 @@ variable "cluster_autoscaling" {
     cpu_min    = 80
     cpu_max    = 20
     memory_min = 2048
-    memory_max = 08192
+    memory_max = 4096
   }
 }
 
