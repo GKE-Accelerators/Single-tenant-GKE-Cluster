@@ -40,6 +40,7 @@ variable "cluster_location" {
 variable "labels" {
   description = "Cluster resource labels."
   type        = map(string)
+  default     = { "env" : "test" }
 }
 
 
@@ -108,6 +109,12 @@ variable "private_cluster_config" {
     master_ipv4_cidr_block  = string //The IP range in CIDR notation to use for the hosted master network
     master_global_access    = bool
   })
+  default = {
+    enable_private_nodes    = false
+    enable_private_endpoint = false
+    master_ipv4_cidr_block  = "192.168.1.0/28" //The IP range in CIDR notation to use for the hosted master network
+    master_global_access    = true
+  }
 }
 
 variable "master_authorized_ranges" {
@@ -118,6 +125,7 @@ variable "master_authorized_ranges" {
 variable "enable_binary_authorization" {
   description = "Enable Google Binary Authorization."
   type        = bool
+  default     = false
 }
 
 variable "default_max_pods_per_node" {
