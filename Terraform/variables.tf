@@ -76,9 +76,9 @@ variable "cluster_autoscaling" {
   })
   default = {
     enabled    = true
-    cpu_min    = 80
-    cpu_max    = 20
-    memory_min = 2048
+    cpu_min    = 10
+    cpu_max    = 80
+    memory_min = 1024
     memory_max = 4096
   }
 }
@@ -134,7 +134,7 @@ variable "enable_binary_authorization" {
 variable "default_max_pods_per_node" {
   description = "Max nodes allowed per node."
   type        = number
-  default = 110
+  default     = 110
 }
 
 variable "sync_repo" {
