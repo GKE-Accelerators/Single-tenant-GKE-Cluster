@@ -120,6 +120,9 @@ variable "private_cluster_config" {
 variable "master_authorized_ranges" {
   description = "External Ip address ranges that can access the Kubernetes cluster master through HTTPS.."
   type        = map(string)
+  default = {
+    "public" = "0.0.0.0/0"
+  }
 }
 
 variable "enable_binary_authorization" {
@@ -131,6 +134,7 @@ variable "enable_binary_authorization" {
 variable "default_max_pods_per_node" {
   description = "Max nodes allowed per node."
   type        = number
+  default = 110
 }
 
 variable "sync_repo" {
