@@ -9,7 +9,7 @@ This repo contains the following
 Kubernetes config files
 
 ## Architecture
-![architecture diagram](./architecture_diagram.png "Figure 1")
+![architecture diagram](https://github.com/GKE-Accelerators/Single-tenant-GKE-Cluster/blob/main/architecture_diagram.png "Figure 1")
 
 In this diagram, we have an architecture of a simple GKE regional cluster, with a gateway deployed and also register the cluster to Anthos Configuration management to use policy controller.
 
