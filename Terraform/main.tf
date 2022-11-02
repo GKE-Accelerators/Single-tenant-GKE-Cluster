@@ -15,7 +15,7 @@
  */
 
 module "gke-cluster" {
-  source                   = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-cluster?ref=v15.0.0"
+  source                   = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/gke-cluster"
   project_id               = var.project_id
   name                     = var.cluster_name
   description              = var.cluster_description
