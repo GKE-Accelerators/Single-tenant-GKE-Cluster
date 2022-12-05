@@ -65,6 +65,8 @@ variable "secondary_range_services" {
   type        = string
 }
 
+
+
 variable "cluster_autoscaling" {
   description = "Enable and configure limits for Node Auto-Provisioning with Cluster Autoscaler."
   type = object({
@@ -101,18 +103,22 @@ variable "database_encryption_key" {
   default     = null
 }
 
+variable "master_ipv4_cidr_block" {
+  description = "The IP range in CIDR notation to use for the hosted master network"
+  type = string
+  default =  "192.168.1.0/28"
+
+}  
+
+
 variable "private_cluster_config" {
   description = "Enable and configure private cluster, private nodes must be true if used."
   type = object({
-    enable_private_nodes    = bool
     enable_private_endpoint = bool
-    master_ipv4_cidr_block  = string //The IP range in CIDR notation to use for the hosted master network
     master_global_access    = bool
   })
   default = {
-    enable_private_nodes    = false
     enable_private_endpoint = false
-    master_ipv4_cidr_block  = "192.168.1.0/28" //The IP range in CIDR notation to use for the hosted master network
     master_global_access    = true
   }
 }
@@ -134,7 +140,7 @@ variable "enable_binary_authorization" {
 variable "default_max_pods_per_node" {
   description = "Max nodes allowed per node."
   type        = number
-  default     = 110
+  default     = 55
 }
 
 variable "sync_repo" {
